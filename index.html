@@ -1044,289 +1044,139 @@
   
   <body>
 
-  <!-- =========================
-       HALAMAN LOGIN
-  ========================== -->
+// =========================
+// LOGIN
+// =========================
+loginForm.addEventListener("submit", async function(event) {
 
-  <div class="login-page" id="loginPage">
+  event.preventDefault();
+
+  errorMessage.className = "message";
+  errorMessage.textContent = "Sedang masuk...";
+
+  loginButton.disabled = true;
+  loginButton.textContent = "MEMPROSES...";
 
-    <div class="login-wrapper">
+  try {
 
-      <div class="brand">
-        <div class="brand-icon">🏥</div>
+    const email =
+      document.getElementById("email").value.trim();
 
-        <h1>SIKAPOS SEGAK</h1>
+    const password =
+      document.getElementById("password").value;
 
-        <p>
-          Sistem Informasi Kader Posyandu<br>
-          Desa Sungai Segak
-        </p>
-      </div>
+    if (!email || !password) {
+      throw new Error("Email dan password wajib diisi.");
+    }
 
-      <div class="login-box">
+    // =========================
+    // LOGIN SUPABASE
+    // =========================
 
-        <h2>Masuk ke Sistem</h2>
+    const {
+      data,
+      error
+    } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
 
-        <p class="login-subtitle">
-          Silakan masuk menggunakan akun kader Anda.
-        </p>
+    if (error) {
+      throw new Error("Login gagal: " + error.message);
+    }
 
-        <form id="loginForm">
+    if (!data || !data.user) {
+      throw new Error(
+        "Login berhasil tetapi data pengguna tidak ditemukan."
+      );
+    }
 
-          <div class="form-group">
+    // =========================
+    // CARI DATA KADER
+    // =========================
 
-            <label for="email">Email</label>
+    const userId = data.user.id;
 
-            <div class="input-wrapper">
-              <span class="input-icon">✉️</span>
+    const {
+      data: kader,
+      error: kaderError
+    } = await supabaseClient
+      .from("kader")
+      .select("nama, posyandu_kode, aktif, user_id")
+      .eq("user_id", userId)
+      .maybeSingle();
 
-              <input
-                type="email"
-                id="email"
-                placeholder="nama@email.com"
-                autocomplete="email"
-                required
-              >
-            </div>
+    if (kaderError) {
+      throw new Error(
+        "Data kader tidak bisa dibaca: " +
+        kaderError.message
+      );
+    }
 
-          </div>
+    if (!kader) {
+      throw new Error(
+        "Akun berhasil login, tetapi belum terhubung ke data kader."
+      );
+    }
 
-          <div class="form-group">
+    // =========================
+    // CEK STATUS
+    // =========================
 
-            <label for="password">Password</label>
+    if (!kader.aktif) {
 
-            <div class="input-wrapper">
-              <span class="input-icon">🔒</span>
+      await supabaseClient.auth.signOut();
 
-              <input
-                type="password"
-                id="password"
-                placeholder="Masukkan password"
-                autocomplete="current-password"
-                required
-              >
-            </div>
+      throw new Error(
+        "Akun kader tidak aktif."
+      );
+    }
 
-          </div>
+    // =========================
+    // TAMPILKAN DASHBOARD
+    // =========================
 
-          <button
-            type="submit"
-            class="login-button"
-            id="loginButton"
-          >
-            MASUK
-          </button>
+    currentKader = kader;
 
-          <div
-            class="message"
-            id="errorMessage"
-          ></div>
+    document.getElementById("kaderName").textContent =
+      kader.nama || "Kader";
 
-        </form>
+    document.getElementById("userEmail").textContent =
+      data.user.email;
 
-      </div>
+    document.getElementById("posyandu").textContent =
+      "Posyandu " + kader.posyandu_kode;
 
-      <div class="login-footer">
-        SIKAPOS SEGAK • Desa Sungai Segak
-      </div>
+    document.getElementById("avatar").textContent =
+      (kader.nama || "K")
+        .charAt(0)
+        .toUpperCase();
 
-    </div>
+    loginPage.style.display = "none";
+    dashboardPage.style.display = "block";
 
-  </div>
+    errorMessage.className = "message";
+    errorMessage.textContent = "";
 
+  } catch (error) {
 
-<!-- =========================
-     DASHBOARD
-========================== -->
+    console.error("LOGIN ERROR:", error);
 
-<div class="dashboard" id="dashboardPage">
+    errorMessage.className = "message error";
 
-  <!-- TOPBAR -->
-  <div class="topbar">
+    errorMessage.textContent =
+      error && error.message
+        ? error.message
+        : "Terjadi kesalahan saat login.";
 
-    <div class="topbar-inner">
+  } finally {
 
-      <div class="topbar-title">
+    loginButton.disabled = false;
+    loginButton.textContent = "MASUK";
 
-        <!-- LOGO -->
-        <div class="mini-logo">
-          🏥
-        </div>
+  }
 
-        <!-- JUDUL -->
-        <div>
-          <h1>SIKAPOS SEGAK</h1>
-          <p>
-            Sistem Informasi Kader Posyandu
-          </p>
-        </div>
-
-        <!-- LOGOUT -->
-        <button
-          type="button"
-          id="logoutButton"
-          class="logout-topbar"
-        >
-          <span>↪</span>
-          Keluar
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- ISI DASHBOARD -->
-  <div class="dashboard-content">
-
-    <!-- =========================
-         PROFIL KADER
-    ========================== -->
-
-    <div class="profile-card">
-
-      <div class="profile-left">
-
-        <!-- AVATAR -->
-        <div
-          class="avatar"
-          id="avatar"
-        >
-          K
-        </div>
-
-        <!-- INFORMASI KADER -->
-        <div>
-
-          <h2
-            class="profile-name"
-            id="kaderName"
-          >
-            Kader
-          </h2>
-
-          <p
-            class="profile-email"
-            id="userEmail"
-          ></p>
-
-          <span
-            class="posyandu-badge"
-            id="posyandu"
-          >
-            Posyandu
-          </span>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <!-- =========================
-         MENU DATA POSYANDU
-    ========================== -->
-
-    <h2 class="section-title">
-      Data Posyandu
-    </h2>
-
-
-    <div class="cards">
-
-      <!-- BALITA -->
-      <button
-        class="card"
-        id="balitaMenu"
-        type="button"
-      >
-
-        <div class="card-icon">
-          👶
-        </div>
-
-        <h3>
-          Balita
-        </h3>
-
-        <p>
-          Data balita
-        </p>
-
-      </button>
-
-
-      <!-- IBU HAMIL & NIFAS -->
-      <button
-        class="card"
-        id="ibuHamilMenu"
-        type="button"
-      >
-
-        <div class="card-icon">
-          🤰
-        </div>
-
-        <h3>
-          Ibu Hamil & Nifas
-        </h3>
-
-        <p>
-          Data ibu hamil dan nifas
-        </p>
-
-      </button>
-
-
-      <!-- REMATRI -->
-      <div
-        class="card"
-        id="rematriMenu"
-      >
-
-        <div class="card-icon">
-          👧
-        </div>
-
-        <h3>
-          Rematri
-        </h3>
-
-        <p>
-          Data remaja putri
-        </p>
-
-      </div>
-
-
-      <!-- LANSIA -->
-      <div
-        class="card"
-        id="lansiaMenu"
-      >
-
-        <div class="card-icon">
-          👵
-        </div>
-
-        <h3>
-          Lansia
-        </h3>
-
-        <p>
-          Data lansia
-        </p>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
+});
 
 <!-- =========================
      HALAMAN BALITA
