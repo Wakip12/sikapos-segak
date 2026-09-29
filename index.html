@@ -271,14 +271,11 @@
           .eq("user_id", data.user.id)
           .single();
 
-
-        if (kaderError) {
-        errorMessage.textContent =
-          "Error kader: " + kaderError.message;
+       if (kaderError) {
+         errorMessage.textContent =
+           "Login berhasil, tetapi data kader belum ditemukan.";
         return;
-          
-        }
-
+      }
 
       if (!kader.aktif) {
         await supabaseClient.auth.signOut();
