@@ -272,11 +272,12 @@
           .single();
 
 
-      if (kaderError) {
+        if (kaderError) {
         errorMessage.textContent =
-          "Login berhasil, tetapi data kader belum ditemukan.";
+          "Error kader: " + kaderError.message;
         return;
-      }
+          
+        }
 
 
       if (!kader.aktif) {
