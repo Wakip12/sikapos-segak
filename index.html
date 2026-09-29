@@ -1133,6 +1133,7 @@
     
     let currentKader = null;
     let editBalitaId = null;
+    let editIbuHamilId = null;
     
 
     // =========================
@@ -2069,6 +2070,11 @@ async function loadIbuHamil() {
           <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
             Tgl Pemeriksaan
           </th>
+          
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Aksi
+          </th>
+        
         </tr>
       </thead>
 
@@ -2131,6 +2137,25 @@ async function loadIbuHamil() {
         <td style="padding:10px;border-bottom:1px solid #edf2ef;">
           ${item.tanggal_pemeriksaan || "-"}
         </td>
+        
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;white-space:nowrap;">
+        
+          <button
+            type="button"
+            onclick="editIbuHamil('${item.id}')"
+            style="margin-right:5px;"
+          >
+            Edit
+          </button>
+        
+          <button
+            type="button"
+            onclick="hapusIbuHamil('${item.id}')"
+          >
+            Hapus
+          </button>
+
+          </td>
 
       </tr>
     `;
@@ -2144,7 +2169,216 @@ async function loadIbuHamil() {
 
   daftarIbuHamil.innerHTML = html;
 }
-    
+
+// =========================
+// UPDATE DATA IBU HAMIL & NIFAS
+// =========================
+
+document
+  .getElementById("ibuHamilForm")
+  .addEventListener("submit", async function(event) {
+
+    if (!editIbuHamilId) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const message =
+      document.getElementById("ibuHamilMessage");
+
+    message.className = "message";
+    message.textContent = "Memperbarui data...";
+
+    const { error } = await supabaseClient
+      .from("ibu_hamil_nifas")
+      .update({
+        no_kk:
+          document.getElementById("ibuKK").value.trim() || null,
+
+        nik:
+          document.getElementById("ibuNIK").value.trim(),
+
+        nama:
+          document.getElementById("ibuNama").value.trim(),
+
+        tanggal_lahir:
+          document.getElementById("ibuTanggalLahir").value || null,
+
+        nama_suami:
+          document.getElementById("ibuSuami").value.trim() || null,
+
+        status:
+          document.getElementById("ibuStatus").value,
+
+        hpht:
+          document.getElementById("ibuHPHT").value || null,
+
+        hpl:
+          document.getElementById("ibuHPL").value || null,
+
+        tanggal_persalinan:
+          document.getElementById("ibuTanggalPersalinan").value || null,
+
+        berat_badan:
+          document.getElementById("ibuBB").value
+            ? Number(document.getElementById("ibuBB").value)
+            : null,
+
+        tinggi_badan:
+          document.getElementById("ibuTB").value
+            ? Number(document.getElementById("ibuTB").value)
+            : null,
+
+        tekanan_darah:
+          document.getElementById("ibuTekananDarah").value.trim() || null,
+
+        tanggal_pemeriksaan:
+          document.getElementById("ibuTanggalPemeriksaan").value || null
+      })
+      .eq("id", editIbuHamilId)
+      .eq("posyandu_kode", currentKader.posyandu_kode);
+
+    if (error) {
+
+      console.error(error);
+
+      message.className = "message error";
+      message.textContent =
+        "Gagal memperbarui data: " + error.message;
+
+      return;
+    }
+
+    message.className = "message success";
+    message.textContent =
+      "Data berhasil diperbarui.";
+
+    editIbuHamilId = null;
+
+    document
+      .getElementById("ibuHamilForm")
+      .reset();
+
+    await loadIbuHamil();
+  });
+
+// =========================
+// HAPUS DATA IBU HAMIL & NIFAS
+// =========================
+
+async function hapusIbuHamil(id) {
+
+  const yakin = confirm(
+    "Apakah Anda yakin ingin menghapus data ibu ini?"
+  );
+
+  if (!yakin) {
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("ibu_hamil_nifas")
+    .delete()
+    .eq("id", id)
+    .eq("posyandu_kode", currentKader.posyandu_kode);
+
+  if (error) {
+
+    console.error(error);
+
+    alert(
+      "Gagal menghapus data: " +
+      error.message
+    );
+
+    return;
+  }
+
+  alert("Data berhasil dihapus.");
+
+  await loadIbuHamil();
+}
+
+   // =========================
+// EDIT DATA IBU HAMIL & NIFAS
+// =========================
+
+async function editIbuHamil(id) {
+
+  const { data, error } = await supabaseClient
+    .from("ibu_hamil_nifas")
+    .select("*")
+    .eq("id", id)
+    .eq("posyandu_kode", currentKader.posyandu_kode)
+    .single();
+
+  if (error) {
+
+    console.error(error);
+
+    alert(
+      "Gagal mengambil data: " +
+      error.message
+    );
+
+    return;
+  }
+
+  editIbuHamilId = id;
+
+  document.getElementById("ibuKK").value =
+    data.no_kk || "";
+
+  document.getElementById("ibuNIK").value =
+    data.nik || "";
+
+  document.getElementById("ibuNama").value =
+    data.nama || "";
+
+  document.getElementById("ibuTanggalLahir").value =
+    data.tanggal_lahir || "";
+
+  document.getElementById("ibuSuami").value =
+    data.nama_suami || "";
+
+  document.getElementById("ibuStatus").value =
+    data.status || "Hamil";
+
+  document.getElementById("ibuHPHT").value =
+    data.hpht || "";
+
+  document.getElementById("ibuHPL").value =
+    data.hpl || "";
+
+  document.getElementById("ibuTanggalPersalinan").value =
+    data.tanggal_persalinan || "";
+
+  document.getElementById("ibuBB").value =
+    data.berat_badan ?? "";
+
+  document.getElementById("ibuTB").value =
+    data.tinggi_badan ?? "";
+
+  document.getElementById("ibuTekananDarah").value =
+    data.tekanan_darah || "";
+
+  document.getElementById("ibuTanggalPemeriksaan").value =
+    data.tanggal_pemeriksaan || "";
+
+  document.getElementById("ibuHamilMessage").className =
+    "message";
+
+  document.getElementById("ibuHamilMessage").textContent =
+    "Data dimuat untuk diedit.";
+
+  document
+    .getElementById("ibuHamilForm")
+    .scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+} 
     // =========================
     // LOGOUT
     // =========================
