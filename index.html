@@ -1364,7 +1364,18 @@ balitaForm.addEventListener(
       return;
     }
 
-
+  const noKK =
+    document
+      .getElementById("balitaKK")
+      .value
+      .trim();
+  
+  const nik =
+    document
+      .getElementById("balitaNIK")
+      .value
+      .trim();
+    
     const nama =
       document
         .getElementById("balitaNama")
@@ -1416,6 +1427,10 @@ balitaForm.addEventListener(
         .from("balita")
         .insert({
 
+          no_kk: noKK,
+          
+          nik: nik,
+          
           nama: nama,
 
           jenis_kelamin:
