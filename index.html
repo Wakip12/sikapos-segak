@@ -918,7 +918,8 @@
       document.getElementById("daftarBalita");
     
     let currentKader = null;
-
+    let editBalitaId = null;
+    
 
     // =========================
     // LOGIN
@@ -1336,6 +1337,25 @@ async function loadBalita() {
             ${item.tinggi_badan ?? "-"} cm
           </td>
 
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          <button
+            type="button"
+            class="edit-balita"
+            data-id="${item.id}"
+            style="
+              border:none;
+              background:#e8f5ee;
+              color:#1f6f4a;
+              padding:8px 12px;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:600;
+            "
+          >
+            ✏️ Edit
+          </button>
+        </td>
+
         </tr>
       `;
 
@@ -1510,6 +1530,98 @@ balitaForm.addEventListener(
   }
 );
 
+// =========================
+// EDIT BALITA
+// =========================
+
+document.addEventListener("click", async function(event) {
+
+  const tombolEdit = event.target.closest(".edit-balita");
+
+  if (!tombolEdit) return;
+
+  const id = tombolEdit.getAttribute("data-id");
+
+  if (!id) return;
+
+  editBalitaId = id;
+
+  balitaMessage.className = "message";
+  balitaMessage.textContent = "Memuat data balita...";
+
+  const { data, error } = await supabaseClient
+    .from("balita")
+    .select(`
+      id,
+      no_kk,
+      nik,
+      nama,
+      jenis_kelamin,
+      tanggal_lahir,
+      nama_ibu,
+      berat_badan,
+      tinggi_badan,
+      tanggal_pengukuran
+    `)
+    .eq("id", id)
+    .single();
+
+  if (error) {
+
+    console.error(error);
+
+    balitaMessage.className = "message error";
+    balitaMessage.textContent =
+      "Gagal mengambil data: " + error.message;
+
+    return;
+  }
+
+  document.getElementById("balitaNoKK").value =
+    data.no_kk || "";
+
+  document.getElementById("balitaNIK").value =
+    data.nik || "";
+
+  document.getElementById("balitaNama").value =
+    data.nama || "";
+
+  document.getElementById("balitaJK").value =
+    data.jenis_kelamin || "";
+
+  document.getElementById("balitaTanggalLahir").value =
+    data.tanggal_lahir || "";
+
+  document.getElementById("balitaIbu").value =
+    data.nama_ibu || "";
+
+  document.getElementById("balitaBB").value =
+    data.berat_badan ?? "";
+
+  document.getElementById("balitaTB").value =
+    data.tinggi_badan ?? "";
+
+  document.getElementById("balitaTanggalPengukuran").value =
+    data.tanggal_pengukuran || "";
+
+  const tombolSimpan =
+    document.querySelector("#balitaForm button[type='submit']");
+
+  if (tombolSimpan) {
+    tombolSimpan.textContent = "UPDATE DATA BALITA";
+  }
+
+  balitaMessage.className = "message success";
+
+  balitaMessage.textContent =
+    "Mode edit aktif. Silakan perbaiki data lalu klik UPDATE.";
+
+  document.getElementById("balitaForm").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+});
 
 // =========================
 // PENGAMAN TEKS
