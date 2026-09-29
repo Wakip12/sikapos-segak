@@ -1042,7 +1042,256 @@
   </head>
   
   <body>
+    
+<!-- =========================
+     HALAMAN LOGIN
+========================= -->
+<div id="loginPage" class="login-page">
 
+  <div class="login-wrapper">
+
+    <div class="brand">
+      <div class="brand-icon">🏥</div>
+
+      <h1>SIKAPOS SEGAK</h1>
+
+      <p>
+        Sistem Informasi Kader Posyandu<br>
+        Desa Sungai Segak
+      </p>
+    </div>
+
+    <div class="login-box">
+
+      <h2>Masuk ke Sistem</h2>
+
+      <p class="login-subtitle">
+        Gunakan email dan password akun kader.
+      </p>
+
+      <form id="loginForm">
+
+        <div class="form-group">
+          <label for="email">Email</label>
+
+          <div class="input-wrapper">
+            <span class="input-icon">📧</span>
+
+            <input
+              type="email"
+              id="email"
+              placeholder="Masukkan email"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <div class="input-wrapper">
+            <span class="input-icon">🔒</span>
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Masukkan password"
+              required
+            >
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="loginButton"
+          class="login-button"
+        >
+          MASUK
+        </button>
+
+        <div
+          id="errorMessage"
+          class="message"
+        ></div>
+
+      </form>
+
+    </div>
+
+    <div class="login-footer">
+      SIKAPOS SEGAK • Desa Sungai Segak
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     HALAMAN DASHBOARD
+========================= -->
+<div
+  id="dashboardPage"
+  class="dashboard"
+>
+
+  <div class="topbar">
+
+    <div class="topbar-inner">
+
+      <div class="topbar-title">
+
+        <div class="mini-logo">
+          🏥
+        </div>
+
+        <div>
+          <h1>SIKAPOS SEGAK</h1>
+
+          <p>
+            Sistem Informasi Kader Posyandu
+          </p>
+        </div>
+
+        <button
+          type="button"
+          id="logoutButton"
+          class="logout-topbar"
+        >
+          <span>↪</span>
+          Keluar
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-content">
+
+    <div class="profile-card">
+
+      <div class="profile-left">
+
+        <div
+          id="avatar"
+          class="avatar"
+        >
+          K
+        </div>
+
+        <div>
+
+          <h2
+            id="kaderName"
+            class="profile-name"
+          >
+            Kader Posyandu
+          </h2>
+
+          <p
+            id="userEmail"
+            class="profile-email"
+          ></p>
+
+          <span
+            id="posyandu"
+            class="posyandu-badge"
+          >
+            Posyandu
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <h2 class="section-title">
+      Menu Data Posyandu
+    </h2>
+
+
+    <div class="cards">
+
+      <div
+        id="balitaMenu"
+        class="card"
+      >
+        <div class="card-icon">
+          👶
+        </div>
+
+        <h3>
+          Balita
+        </h3>
+
+        <p>
+          Data balita
+        </p>
+      </div>
+
+
+      <div
+        id="ibuHamilMenu"
+        class="card"
+      >
+        <div class="card-icon">
+          🤰
+        </div>
+
+        <h3>
+          Ibu Hamil & Nifas
+        </h3>
+
+        <p>
+          Data ibu hamil
+        </p>
+      </div>
+
+
+      <div
+        class="card"
+      >
+        <div class="card-icon">
+          👧
+        </div>
+
+        <h3>
+          Rematri
+        </h3>
+
+        <p>
+          Data remaja putri
+        </p>
+      </div>
+
+
+      <div
+        class="card"
+      >
+        <div class="card-icon">
+          👵
+        </div>
+
+        <h3>
+          Lansia
+        </h3>
+
+        <p>
+          Data lansia
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+    
 <!-- =========================
      HALAMAN BALITA
 ========================== -->
