@@ -1072,13 +1072,23 @@ loginForm.addEventListener("submit", async function(event) {
     // LOGIN SUPABASE
     // =========================
 
-    const {
-      data,
-      error
-    } = await supabaseClient.auth.signInWithPassword({
+    const loginPromise = supabaseClient.auth.signInWithPassword({
       email: email,
       password: password
     });
+    
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error(
+          "Koneksi ke server terlalu lama. Periksa internet lalu coba lagi."
+        ));
+      }, 15000);
+    });
+    
+    const { data, error } = await Promise.race([
+      loginPromise,
+      timeoutPromise
+    ]);
 
     if (error) {
       throw new Error("Login gagal: " + error.message);
