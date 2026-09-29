@@ -2955,6 +2955,121 @@ async function editIbuHamil(id) {
       block: "start"
     });
 } 
+
+// =========================
+// LOGIN
+// =========================
+
+loginForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    errorMessage.className = "message";
+    errorMessage.textContent = "";
+    loginButton.disabled = true;
+    loginButton.textContent = "MEMPROSES...";
+
+    try {
+
+      const loginPromise =
+        supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      const timeoutPromise =
+        new Promise(function(_, reject) {
+          setTimeout(function() {
+            reject(
+              new Error(
+                "Koneksi ke server terlalu lama. Periksa internet lalu coba lagi."
+              )
+            );
+          }, 15000);
+        });
+
+      const result =
+        await Promise.race([
+          loginPromise,
+          timeoutPromise
+        ]);
+
+      const data = result.data;
+      const error = result.error;
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data || !data.user) {
+        throw new Error(
+          "Login gagal. Data pengguna tidak ditemukan."
+        );
+      }
+
+      // Ambil data kader
+      const kaderResult =
+        await supabaseClient
+          .from("kader")
+          .select("*")
+          .eq("user_id", data.user.id)
+          .single();
+
+      if (kaderResult.error) {
+        throw new Error(
+          "Data kader tidak ditemukan."
+        );
+      }
+
+      currentKader = kaderResult.data;
+
+      // Tampilkan informasi kader
+      document.getElementById("userEmail").textContent =
+        data.user.email || "";
+
+      document.getElementById("kaderName").textContent =
+        currentKader.nama || "Kader Posyandu";
+
+      document.getElementById("posyandu").textContent =
+        currentKader.posyandu_kode || "Posyandu";
+
+      document.getElementById("avatar").textContent =
+        (currentKader.nama || "K").charAt(0).toUpperCase();
+
+      // Pindah ke dashboard
+      loginPage.style.display = "none";
+      dashboardPage.style.display = "block";
+
+      errorMessage.className = "message";
+      errorMessage.textContent = "";
+
+    } catch (error) {
+
+      console.error(error);
+
+      errorMessage.className = "message error";
+      errorMessage.textContent =
+        error.message ||
+        "Login gagal. Periksa email dan password.";
+
+    } finally {
+
+      loginButton.disabled = false;
+      loginButton.textContent = "MASUK";
+
+    }
+
+  }
+);
+    
     // =========================
     // LOGOUT
     // =========================
