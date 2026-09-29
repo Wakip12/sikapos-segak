@@ -271,9 +271,9 @@
           .eq("user_id", data.user.id)
           .single();
 
-       if (kaderError) {
-         errorMessage.textContent =
-           "Login berhasil, tetapi data kader belum ditemukan.";
+      if (kaderError) {
+        errorMessage.textContent =
+          "Error kader: " + kaderError.message;
         return;
       }
 
