@@ -2464,7 +2464,19 @@ document
     if (!id) return;
   
     editIbuHamil(id);
-});
+  });
+
+  document.addEventListener("click", function(event) {
+    const tombolHapus = event.target.closest(".hapus-ibu-hamil");
+  
+    if (!tombolHapus) return;
+  
+    const id = tombolHapus.getAttribute("data-id");
+  
+    if (!id) return;
+  
+    hapusIbuHamil(id);
+  });
 
 // =========================
 // HAPUS DATA IBU HAMIL & NIFAS
