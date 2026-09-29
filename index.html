@@ -1367,6 +1367,34 @@ balitaMenu.addEventListener(
   }
 );
 
+ibuHamilMenu.addEventListener(
+  "click",
+  function() {
+
+    document.querySelector(".profile-card").style.display = "none";
+    document.querySelector(".section-title").style.display = "none";
+    document.querySelector(".cards").style.display = "none";
+
+    balitaPage.style.display = "none";
+    ibuHamilPage.style.display = "block";
+
+  }
+);
+
+document
+  .getElementById("kembaliDashboardIbu")
+  .addEventListener(
+    "click",
+    function() {
+
+      ibuHamilPage.style.display = "none";
+
+      document.querySelector(".profile-card").style.display = "";
+      document.querySelector(".section-title").style.display = "";
+      document.querySelector(".cards").style.display = "";
+
+    }
+  );
 
 // =========================
 // KEMBALI KE DASHBOARD
