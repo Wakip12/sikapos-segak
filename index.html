@@ -2474,6 +2474,104 @@ async function loadIbuHamil() {
 }
 
 // =========================
+// SIMPAN DATA IBU HAMIL & NIFAS
+// =========================
+
+document
+  .getElementById("ibuHamilForm")
+  .addEventListener("submit", async function(event) {
+
+    if (editIbuHamilId) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const message =
+      document.getElementById("ibuHamilMessage");
+
+    message.className = "message";
+    message.textContent = "Menyimpan data...";
+
+    if (!currentKader) {
+      message.className = "message error";
+      message.textContent =
+        "Data kader belum tersedia.";
+      return;
+    }
+
+    const { error } = await supabaseClient
+      .from("ibu_hamil_nifas")
+      .insert({
+        no_kk:
+          document.getElementById("ibuKK").value.trim() || null,
+
+        nik:
+          document.getElementById("ibuNIK").value.trim(),
+
+        nama:
+          document.getElementById("ibuNama").value.trim(),
+
+        tanggal_lahir:
+          document.getElementById("ibuTanggalLahir").value || null,
+
+        nama_suami:
+          document.getElementById("ibuSuami").value.trim() || null,
+
+        status:
+          document.getElementById("ibuStatus").value,
+
+        hpht:
+          document.getElementById("ibuHPHT").value || null,
+
+        hpl:
+          document.getElementById("ibuHPL").value || null,
+
+        tanggal_persalinan:
+          document.getElementById("ibuTanggalPersalinan").value || null,
+
+        berat_badan:
+          document.getElementById("ibuBB").value
+            ? Number(document.getElementById("ibuBB").value)
+            : null,
+
+        tinggi_badan:
+          document.getElementById("ibuTB").value
+            ? Number(document.getElementById("ibuTB").value)
+            : null,
+
+        tekanan_darah:
+          document.getElementById("ibuTekananDarah").value.trim() || null,
+
+        tanggal_pemeriksaan:
+          document.getElementById("ibuTanggalPemeriksaan").value || null,
+
+        posyandu_kode:
+          currentKader.posyandu_kode
+      });
+
+    if (error) {
+      console.error(error);
+
+      message.className = "message error";
+      message.textContent =
+        "Gagal menyimpan data: " + error.message;
+
+      return;
+    }
+
+    message.className = "message success";
+    message.textContent =
+      "Data ibu hamil & nifas berhasil disimpan.";
+
+    document
+      .getElementById("ibuHamilForm")
+      .reset();
+
+    await loadIbuHamil();
+  });
+
+// =========================
 // UPDATE DATA IBU HAMIL & NIFAS
 // =========================
 
