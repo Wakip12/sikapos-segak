@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIKAPOS SEGAK</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f7f4;
+      color: #26332b;
+    }
+
+    .header {
+      background: #16784b;
+      color: white;
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 25px auto;
+      padding: 0 18px;
+    }
+
+    .welcome {
+      background: white;
+      border-radius: 15px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .welcome h2 {
+      margin-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px 18px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      margin-bottom: 7px;
+    }
+
+    .card p {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #16784b;
+      color: white;
+    }
+
+    .secondary {
+      background: white;
+      color: #16784b;
+      border: 1px solid #16784b;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px 15px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>SIKAPOS SEGAK</h1>
+    <p>Sistem Informasi Kader Posyandu Desa Sungai Segak</p>
+  </div>
+
+  <div class="container">
+
+    <div class="welcome">
+      <h2>Dashboard Kader</h2>
+      <p>Posyandu: <strong>Posyandu 01</strong></p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="icon">👶</div>
+        <h3>Balita</h3>
+        <p>Data dan pemeriksaan balita</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🤰</div>
+        <h3>Ibu Hamil & Nifas</h3>
+        <p>Data ibu hamil dan nifas</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">👧</div>
+        <h3>Rematri</h3>
+        <p>Data remaja putri</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">👴</div>
+        <h3>Lansia</h3>
+        <p>Data dan pemeriksaan lansia</p>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <button class="primary" onclick="alert('Menu tambah data akan kita buat pada tahap berikutnya.')">
+        + Tambah Data
+      </button>
+
+      <button class="secondary" onclick="alert('Menu pencarian akan kita buat pada tahap berikutnya.')">
+        🔎 Cari Data
+      </button>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    SIKAPOS SEGAK © Desa Sungai Segak
+  </div>
+
+</body>
+</html>
