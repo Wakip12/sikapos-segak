@@ -613,11 +613,11 @@
           <p>Data balita</p>
         </button>
 
-        <div class="card">
+        <button class="card" id="ibuHamilMenu" type="button">
           <div class="card-icon">🤰</div>
           <h3>Ibu Hamil & Nifas</h3>
           <p>Data ibu hamil dan nifas</p>
-        </div>
+        </button>
 
         <div class="card">
           <div class="card-icon">👧</div>
@@ -633,9 +633,8 @@
 
       </div>
 
-
 <!-- =========================
-     HALAMAN DATA BALITA
+     HALAMAN BALITA
 ========================== -->
 
 <div
@@ -650,175 +649,151 @@
         👶 Data Balita
       </h2>
 
-      <p
-        style="margin:6px 0 0;color:#6b7770;"
-      >
+      <p style="margin:6px 0 0;color:#6b7770;">
         Data balita Posyandu
       </p>
     </div>
 
   </div>
 
-
   <!-- FORM TAMBAH BALITA -->
 
-<div class="profile-card" style="margin-bottom:20px;">
+  <div class="profile-card" style="margin-bottom:20px;">
 
-  <div style="
-    text-align:center;
-    padding:10px 0 20px;
-  ">
     <div style="
-      font-size:72px;
-      line-height:1;
-      margin-bottom:10px;
+      text-align:center;
+      padding:10px 0 20px;
     ">
-      👶
+      <div style="
+        font-size:72px;
+        line-height:1;
+        margin-bottom:10px;
+      ">
+        👶
+      </div>
+
+      <h2 style="margin:0;color:#1f6f4a;">
+        Tambah Data Balita
+      </h2>
+
+      <p style="margin:8px 0 0;color:#6b7770;">
+        Lengkapi data balita dengan benar
+      </p>
     </div>
 
-    <h2 style="
-      margin:0;
-      color:#1f6f4a;
-    ">
-      Tambah Data Balita
-    </h2>
+    <form id="balitaForm">
 
-    <p style="
-      margin:8px 0 0;
-      color:#6b7770;
-    ">
-      Lengkapi data balita dengan benar
-    </p>
+      <div class="form-group">
+        <label for="balitaKK">Nomor KK</label>
+        <input
+          type="text"
+          id="balitaKK"
+          placeholder="Masukkan Nomor KK"
+          inputmode="numeric"
+          maxlength="16"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="balitaNIK">NIK Anak</label>
+        <input
+          type="text"
+          id="balitaNIK"
+          placeholder="Masukkan NIK anak"
+          inputmode="numeric"
+          maxlength="16"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="balitaNama">Nama Balita</label>
+        <input
+          type="text"
+          id="balitaNama"
+          placeholder="Nama lengkap balita"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="balitaJK">Jenis Kelamin</label>
+        <select id="balitaJK" required>
+          <option value="">Pilih jenis kelamin</option>
+          <option value="L">Laki-laki</option>
+          <option value="P">Perempuan</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="balitaTanggalLahir">Tanggal Lahir</label>
+        <input
+          type="date"
+          id="balitaTanggalLahir"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="balitaIbu">Nama Ibu</label>
+        <input
+          type="text"
+          id="balitaIbu"
+          placeholder="Nama ibu"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="balitaBB">Berat Badan (kg)</label>
+        <input
+          type="number"
+          id="balitaBB"
+          placeholder="Contoh: 8.5"
+          step="0.1"
+          min="0"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="balitaTB">Tinggi Badan (cm)</label>
+        <input
+          type="number"
+          id="balitaTB"
+          placeholder="Contoh: 72.5"
+          step="0.1"
+          min="0"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="balitaTanggalPengukuran">
+          Tanggal Pengukuran
+        </label>
+
+        <input
+          type="date"
+          id="balitaTanggalPengukuran"
+        >
+      </div>
+
+      <button
+        type="submit"
+        class="primary-button"
+        style="width:100%;margin-top:10px;"
+      >
+        SIMPAN DATA BALITA
+      </button>
+
+      <div
+        id="balitaMessage"
+        class="message"
+        style="margin-top:12px;"
+      ></div>
+
+    </form>
+
   </div>
-
-
-  <form id="balitaForm">
-
-    <div class="form-group">
-      <label for="balitaKK">Nomor KK</label>
-      <input
-        type="text"
-        id="balitaKK"
-        placeholder="Masukkan Nomor KK"
-        inputmode="numeric"
-        maxlength="16"
-        required
-      >
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaNIK">NIK Anak</label>
-      <input
-        type="text"
-        id="balitaNIK"
-        placeholder="Masukkan NIK anak"
-        inputmode="numeric"
-        maxlength="16"
-        required
-      >
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaNama">Nama Balita</label>
-      <input
-        type="text"
-        id="balitaNama"
-        placeholder="Nama lengkap balita"
-        required
-      >
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaJK">Jenis Kelamin</label>
-      <select id="balitaJK" required>
-        <option value="">Pilih jenis kelamin</option>
-        <option value="L">Laki-laki</option>
-        <option value="P">Perempuan</option>
-      </select>
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaTanggalLahir">Tanggal Lahir</label>
-      <input
-        type="date"
-        id="balitaTanggalLahir"
-        required
-      >
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaIbu">Nama Ibu</label>
-      <input
-        type="text"
-        id="balitaIbu"
-        placeholder="Nama ibu"
-      >
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaBB">Berat Badan (kg)</label>
-      <input
-        type="number"
-        id="balitaBB"
-        placeholder="Contoh: 8.5"
-        step="0.1"
-        min="0"
-      >
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaTB">Tinggi Badan (cm)</label>
-      <input
-        type="number"
-        id="balitaTB"
-        placeholder="Contoh: 72.5"
-        step="0.1"
-        min="0"
-      >
-    </div>
-
-
-    <div class="form-group">
-      <label for="balitaTanggalPengukuran">
-        Tanggal Pengukuran
-      </label>
-
-      <input
-        type="date"
-        id="balitaTanggalPengukuran"
-      >
-    </div>
-
-
-    <button
-      type="submit"
-      class="primary-button"
-      style="
-        width:100%;
-        margin-top:10px;
-      "
-    >
-      SIMPAN DATA BALITA
-    </button>
-
-
-    <div
-      id="balitaMessage"
-      class="message"
-      style="margin-top:12px;"
-    ></div>
-
-  </form>
-
-</div>
-
 
   <!-- DAFTAR BALITA -->
 
@@ -830,15 +805,12 @@
 
     <div
       id="daftarBalita"
-      style="
-        overflow-x:auto;
-      "
+      style="overflow-x:auto;"
     >
       Memuat data...
     </div>
 
   </div>
-
 
   <button
     type="button"
@@ -854,10 +826,246 @@
 
 </div>
 
+
+<!-- =========================
+     HALAMAN IBU HAMIL & NIFAS
+========================== -->
+
+<div
+  id="ibuHamilPage"
+  style="display:none;"
+>
+
+  <div class="profile-card">
+
+    <div>
+      <h2 style="margin:0;">
+        🤰 Data Ibu Hamil & Nifas
+      </h2>
+
+      <p style="margin:6px 0 0;color:#6b7770;">
+        Data pemeriksaan ibu hamil dan nifas
+      </p>
     </div>
 
   </div>
 
+  <!-- FORM TAMBAH DATA -->
+
+  <div class="profile-card" style="margin-bottom:20px;">
+
+    <div style="
+      text-align:center;
+      padding:10px 0 20px;
+    ">
+
+      <div style="
+        font-size:72px;
+        line-height:1;
+        margin-bottom:10px;
+      ">
+        🤰
+      </div>
+
+      <h2 style="margin:0;color:#1f6f4a;">
+        Tambah Data Ibu Hamil & Nifas
+      </h2>
+
+      <p style="margin:8px 0 0;color:#6b7770;">
+        Lengkapi data pemeriksaan dengan benar
+      </p>
+
+    </div>
+
+    <form id="ibuHamilForm">
+
+      <div class="form-group">
+        <label for="ibuKK">Nomor KK</label>
+        <input
+          type="text"
+          id="ibuKK"
+          placeholder="Masukkan Nomor KK"
+          inputmode="numeric"
+          maxlength="16"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuNIK">NIK</label>
+        <input
+          type="text"
+          id="ibuNIK"
+          placeholder="Masukkan NIK"
+          inputmode="numeric"
+          maxlength="16"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuNama">Nama</label>
+        <input
+          type="text"
+          id="ibuNama"
+          placeholder="Nama lengkap"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuTanggalLahir">Tanggal Lahir</label>
+        <input
+          type="date"
+          id="ibuTanggalLahir"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuSuami">Nama Suami</label>
+        <input
+          type="text"
+          id="ibuSuami"
+          placeholder="Nama suami"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuStatus">Status</label>
+
+        <select id="ibuStatus" required>
+          <option value="">Pilih status</option>
+          <option value="Hamil">Hamil</option>
+          <option value="Nifas">Nifas</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ibuHPHT">HPHT</label>
+        <input
+          type="date"
+          id="ibuHPHT"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuHPL">HPL</label>
+        <input
+          type="date"
+          id="ibuHPL"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuTanggalPersalinan">
+          Tanggal Persalinan
+        </label>
+
+        <input
+          type="date"
+          id="ibuTanggalPersalinan"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuBB">
+          Berat Badan (kg)
+        </label>
+
+        <input
+          type="number"
+          id="ibuBB"
+          placeholder="Contoh: 55.5"
+          step="0.1"
+          min="0"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuTB">
+          Tinggi Badan (cm)
+        </label>
+
+        <input
+          type="number"
+          id="ibuTB"
+          placeholder="Contoh: 155"
+          step="0.1"
+          min="0"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuTekananDarah">
+          Tekanan Darah
+        </label>
+
+        <input
+          type="text"
+          id="ibuTekananDarah"
+          placeholder="Contoh: 120/80"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="ibuTanggalPemeriksaan">
+          Tanggal Pemeriksaan
+        </label>
+
+        <input
+          type="date"
+          id="ibuTanggalPemeriksaan"
+          required
+        >
+      </div>
+
+      <button
+        type="submit"
+        class="primary-button"
+        style="width:100%;margin-top:10px;"
+      >
+        SIMPAN DATA IBU HAMIL & NIFAS
+      </button>
+
+      <div
+        id="ibuHamilMessage"
+        class="message"
+        style="margin-top:12px;"
+      ></div>
+
+    </form>
+
+  </div>
+
+  <!-- DAFTAR IBU HAMIL & NIFAS -->
+
+  <div class="profile-card">
+
+    <h3 style="margin-top:0;">
+      Daftar Ibu Hamil & Nifas
+    </h3>
+
+    <div
+      id="daftarIbuHamil"
+      style="overflow-x:auto;"
+    >
+      Memuat data...
+    </div>
+
+  </div>
+
+  <button
+    type="button"
+    id="kembaliDashboardIbu"
+    class="logout"
+    style="
+      color:#16784b;
+      border-color:#cfe6d8;
+    "
+  >
+    ← Kembali ke Dashboard
+  </button>
+
+</div>
 
   <!-- =========================
        SUPABASE
@@ -904,6 +1112,12 @@
     
     const balitaPage =
       document.getElementById("balitaPage");
+
+    const ibuHamilMenu = 
+      document.getElementById("ibuHamilMenu");
+    
+    const ibuHamilPage = 
+      document.getElementById("ibuHamilPage");
     
     const dashboardContent =
       document.querySelector(".dashboard-content");
@@ -1134,7 +1348,7 @@
 
 // =========================
 // MENU BALITA
-// =========================
+// ==========================
 
 balitaMenu.addEventListener(
   "click",
@@ -1150,7 +1364,6 @@ balitaMenu.addEventListener(
 
     // Muat data balita
     await loadBalita();
-
   }
 );
 
