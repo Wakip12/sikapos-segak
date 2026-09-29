@@ -1369,7 +1369,7 @@ balitaMenu.addEventListener(
 
 ibuHamilMenu.addEventListener(
   "click",
-  function() {
+  async function() {
 
     document.querySelector(".profile-card").style.display = "none";
     document.querySelector(".section-title").style.display = "none";
@@ -1377,6 +1377,7 @@ ibuHamilMenu.addEventListener(
 
     balitaPage.style.display = "none";
     ibuHamilPage.style.display = "block";
+    await loadIbuHamil();
 
   }
 );
@@ -1943,78 +1944,206 @@ function escapeHtml(text) {
 }
 
 // =========================
-// SIMPAN DATA IBU HAMIL & NIFAS
+// TAMPILKAN DATA IBU HAMIL & NIFAS
 // =========================
 
-document
-  .getElementById("ibuHamilForm")
-  .addEventListener("submit", async function(event) {
+async function loadIbuHamil() {
 
-    event.preventDefault();
+  const daftarIbuHamil =
+    document.getElementById("daftarIbuHamil");
 
-    const message = document.getElementById("ibuHamilMessage");
+  daftarIbuHamil.textContent =
+    "Memuat data ibu hamil & nifas...";
 
-    message.className = "message";
-    message.textContent = "Menyimpan data...";
+  if (!currentKader) {
+    daftarIbuHamil.textContent =
+      "Data kader belum tersedia.";
+    return;
+  }
 
-    if (!currentKader) {
-      message.className = "message error";
-      message.textContent = "Data kader belum ditemukan.";
-      return;
-    }
-
-    const { error } = await supabaseClient
+  const { data, error } =
+    await supabaseClient
       .from("ibu_hamil_nifas")
-      .insert({
-        no_kk: document.getElementById("ibuKK").value.trim() || null,
-        nik: document.getElementById("ibuNIK").value.trim(),
-        nama: document.getElementById("ibuNama").value.trim(),
-        tanggal_lahir:
-          document.getElementById("ibuTanggalLahir").value || null,
-        nama_suami:
-          document.getElementById("ibuSuami").value.trim() || null,
-        status:
-          document.getElementById("ibuStatus").value,
-        hpht:
-          document.getElementById("ibuHPHT").value || null,
-        hpl:
-          document.getElementById("ibuHPL").value || null,
-        tanggal_persalinan:
-          document.getElementById("ibuTanggalPersalinan").value || null,
-        berat_badan:
-          document.getElementById("ibuBB").value
-            ? Number(document.getElementById("ibuBB").value)
-            : null,
-        tinggi_badan:
-          document.getElementById("ibuTB").value
-            ? Number(document.getElementById("ibuTB").value)
-            : null,
-        tekanan_darah:
-          document.getElementById("ibuTekananDarah").value.trim() || null,
-        tanggal_pemeriksaan:
-          document.getElementById("ibuTanggalPemeriksaan").value || null,
-        posyandu_kode:
-          currentKader.posyandu_kode
-      });
+      .select(`
+        id,
+        no_kk,
+        nik,
+        nama,
+        tanggal_lahir,
+        nama_suami,
+        status,
+        hpht,
+        hpl,
+        tanggal_persalinan,
+        berat_badan,
+        tinggi_badan,
+        tekanan_darah,
+        tanggal_pemeriksaan
+      `)
+      .eq(
+        "posyandu_kode",
+        currentKader.posyandu_kode
+      )
+      .order(
+        "nama",
+        { ascending: true }
+      );
 
-    if (error) {
+  if (error) {
 
-      console.error(error);
+    console.error(error);
 
-      message.className = "message error";
-      message.textContent =
-        "Gagal menyimpan data: " + error.message;
+    daftarIbuHamil.textContent =
+      "Gagal memuat data: " +
+      error.message;
 
-      return;
-    }
+    return;
+  }
 
-    message.className = "message success";
-    message.textContent =
-      "Data ibu hamil & nifas berhasil disimpan.";
+  if (!data || data.length === 0) {
 
-    document.getElementById("ibuHamilForm").reset();
+    daftarIbuHamil.innerHTML =
+      "<p style='color:#6b7770;'>Belum ada data ibu hamil & nifas.</p>";
+
+    return;
+  }
+
+  let html = `
+    <table
+      style="
+        width:100%;
+        border-collapse:collapse;
+        min-width:1100px;
+      "
+    >
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            No
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            No. KK
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            NIK
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Nama
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Suami
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Status
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            HPHT
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            HPL
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Tgl Persalinan
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            BB
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            TB
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Tekanan Darah
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Tgl Pemeriksaan
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+  `;
+
+  data.forEach(function(item, index) {
+
+    html += `
+      <tr>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${index + 1}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.no_kk || "-")}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.nik || "-")}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.nama || "-")}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.nama_suami || "-")}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.status || "-")}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${item.hpht || "-"}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${item.hpl || "-"}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${item.tanggal_persalinan || "-"}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${item.berat_badan ?? "-"} kg
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${item.tinggi_badan ?? "-"} cm
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.tekanan_darah || "-")}
+        </td>
+
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${item.tanggal_pemeriksaan || "-"}
+        </td>
+
+      </tr>
+    `;
 
   });
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+  daftarIbuHamil.innerHTML = html;
+}
     
     // =========================
     // LOGOUT
