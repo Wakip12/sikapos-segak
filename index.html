@@ -1353,6 +1353,22 @@ async function loadBalita() {
             "
           >
             ✏️ Edit
+          <button
+            type="button"
+            class="hapus-balita"
+            data-id="${item.id}"
+            style="
+              border:none;
+              background:#fee2e2;
+              color:#b91c1c;
+              padding:8px 12px;
+              border-radius:8px;
+              cursor:pointer;
+              font-weight:600;
+              margin-left:6px;
+            "
+          >
+            🗑️ Hapus
           </button>
         </td>
 
@@ -1621,7 +1637,54 @@ document.addEventListener("click", async function(event) {
     block: "start"
   });
 
-});
+  });
+      
+// =========================
+// HAPUS BALITA
+// =========================
+  
+  document.addEventListener("click", async function(event) {
+  
+    const tombolHapus = event.target.closest(".hapus-balita");
+  
+    if (!tombolHapus) return;
+  
+    const id = tombolHapus.getAttribute("data-id");
+  
+    if (!id) return;
+  
+    const konfirmasi = confirm(
+      "Apakah Anda yakin ingin menghapus data balita ini?"
+    );
+  
+    if (!konfirmasi) return;
+  
+    balitaMessage.className = "message";
+    balitaMessage.textContent = "Menghapus data balita...";
+  
+    const { error } = await supabaseClient
+      .from("balita")
+      .delete()
+      .eq("id", id);
+  
+    if (error) {
+  
+      console.error(error);
+  
+      balitaMessage.className = "message error";
+      balitaMessage.textContent =
+        "Gagal menghapus data: " + error.message;
+  
+      return;
+    }
+  
+    balitaMessage.className = "message success";
+    balitaMessage.textContent =
+      "Data balita berhasil dihapus.";
+  
+    await loadBalita();
+  
+  });  
 
 // =========================
 // PENGAMAN TEKS
