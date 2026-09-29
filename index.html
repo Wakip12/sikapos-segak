@@ -607,11 +607,11 @@
 
       <div class="cards">
 
-        <div class="card">
+        <button class="card" id="balitaMenu" type="button">
           <div class="card-icon">👶</div>
           <h3>Balita</h3>
           <p>Data balita</p>
-        </div>
+        </button>
 
         <div class="card">
           <div class="card-icon">🤰</div>
@@ -634,12 +634,208 @@
       </div>
 
 
-      <button
-        class="logout"
-        id="logoutButton"
+<!-- =========================
+     HALAMAN DATA BALITA
+========================== -->
+
+<div
+  id="balitaPage"
+  style="display:none;"
+>
+
+  <div class="profile-card">
+
+    <div>
+      <h2 style="margin:0;">
+        👶 Data Balita
+      </h2>
+
+      <p
+        style="margin:6px 0 0;color:#6b7770;"
       >
-        Keluar dari Sistem
+        Data balita Posyandu
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- FORM TAMBAH BALITA -->
+
+  <div class="profile-card">
+
+    <h3 style="margin-top:0;">
+      Tambah Data Balita
+    </h3>
+
+    <form id="balitaForm">
+
+      <div class="form-group">
+        <label for="balitaNama">
+          Nama Balita
+        </label>
+
+        <input
+          type="text"
+          id="balitaNama"
+          placeholder="Nama lengkap balita"
+          required
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="balitaJK">
+          Jenis Kelamin
+        </label>
+
+        <select
+          id="balitaJK"
+          required
+          style="
+            width:100%;
+            padding:13px;
+            border:1px solid #dfe7e2;
+            border-radius:11px;
+            font-size:15px;
+            background:white;
+          "
+        >
+          <option value="">
+            Pilih jenis kelamin
+          </option>
+
+          <option value="L">
+            Laki-laki
+          </option>
+
+          <option value="P">
+            Perempuan
+          </option>
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="balitaTanggalLahir">
+          Tanggal Lahir
+        </label>
+
+        <input
+          type="date"
+          id="balitaTanggalLahir"
+          required
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="balitaIbu">
+          Nama Ibu
+        </label>
+
+        <input
+          type="text"
+          id="balitaIbu"
+          placeholder="Nama ibu"
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="balitaBB">
+          Berat Badan (kg)
+        </label>
+
+        <input
+          type="number"
+          id="balitaBB"
+          step="0.1"
+          min="0"
+          placeholder="Contoh: 8.5"
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="balitaTB">
+          Tinggi Badan (cm)
+        </label>
+
+        <input
+          type="number"
+          id="balitaTB"
+          step="0.1"
+          min="0"
+          placeholder="Contoh: 72.5"
+        >
+      </div>
+
+
+      <div class="form-group">
+        <label for="balitaTanggalPengukuran">
+          Tanggal Pengukuran
+        </label>
+
+        <input
+          type="date"
+          id="balitaTanggalPengukuran"
+        >
+      </div>
+
+
+      <button
+        type="submit"
+        class="login-button"
+        id="simpanBalita"
+      >
+        SIMPAN DATA BALITA
       </button>
+
+
+      <div
+        id="balitaMessage"
+        class="message"
+      ></div>
+
+    </form>
+
+  </div>
+
+
+  <!-- DAFTAR BALITA -->
+
+  <div class="profile-card">
+
+    <h3 style="margin-top:0;">
+      Daftar Balita
+    </h3>
+
+    <div
+      id="daftarBalita"
+      style="
+        overflow-x:auto;
+      "
+    >
+      Memuat data...
+    </div>
+
+  </div>
+
+
+  <button
+    type="button"
+    id="kembaliDashboard"
+    class="logout"
+    style="
+      color:#16784b;
+      border-color:#cfe6d8;
+    "
+  >
+    ← Kembali ke Dashboard
+  </button>
+
+</div>
 
     </div>
 
@@ -659,7 +855,6 @@
 
     const SUPABASE_PUBLISHABLE_KEY =
       "sb_publishable_CnnNfFXKq-7KehidQzhF4w_ux7oMBcZ";
-
 
     const supabaseClient =
       window.supabase.createClient(
@@ -686,6 +881,26 @@
 
     const loginButton =
       document.getElementById("loginButton");
+
+      const balitaMenu =
+    document.getElementById("balitaMenu");
+    
+    const balitaPage =
+      document.getElementById("balitaPage");
+    
+    const dashboardContent =
+      document.querySelector(".dashboard-content");
+    
+    const balitaForm =
+      document.getElementById("balitaForm");
+    
+    const balitaMessage =
+      document.getElementById("balitaMessage");
+    
+    const daftarBalita =
+      document.getElementById("daftarBalita");
+    
+    let currentKader = null;
 
 
     // =========================
@@ -860,7 +1075,7 @@
         dashboardPage.style.display =
           "block";
 
-
+        currentKader = kader;
         const nama =
           kader.nama || "Kader";
 
@@ -899,7 +1114,370 @@
       }
     );
 
+// =========================
+// MENU BALITA
+// =========================
 
+balitaMenu.addEventListener(
+  "click",
+  async function() {
+
+    dashboardContent
+      .querySelectorAll(
+        ".profile-card, .section-title, .cards"
+      )
+      .forEach(function(element) {
+        element.style.display = "none";
+      });
+
+    balitaPage.style.display = "block";
+
+    await loadBalita();
+
+  }
+);
+
+
+// =========================
+// KEMBALI KE DASHBOARD
+// =========================
+
+document
+  .getElementById("kembaliDashboard")
+  .addEventListener(
+    "click",
+    function() {
+
+      balitaPage.style.display = "none";
+
+      dashboardContent
+        .querySelectorAll(
+          ".profile-card, .section-title, .cards"
+        )
+        .forEach(function(element) {
+          element.style.display = "";
+        });
+
+    }
+  );
+
+
+// =========================
+// TAMPILKAN DATA BALITA
+// =========================
+
+async function loadBalita() {
+
+  daftarBalita.textContent =
+    "Memuat data balita...";
+
+
+  if (!currentKader) {
+
+    daftarBalita.textContent =
+      "Data kader belum tersedia.";
+
+    return;
+  }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("balita")
+      .select(
+        "id, nama, jenis_kelamin, tanggal_lahir, nama_ibu, berat_badan, tinggi_badan, tanggal_pengukuran"
+      )
+      .eq(
+        "posyandu_kode",
+        currentKader.posyandu_kode
+      )
+      .order(
+        "nama",
+        {
+          ascending: true
+        }
+      );
+
+
+  if (error) {
+
+    console.error(error);
+
+    daftarBalita.textContent =
+      "Gagal memuat data: " +
+      error.message;
+
+    return;
+  }
+
+
+  if (!data || data.length === 0) {
+
+    daftarBalita.innerHTML =
+      "<p style='color:#6b7770;'>Belum ada data balita.</p>";
+
+    return;
+  }
+
+
+  let html = `
+    <table
+      style="
+        width:100%;
+        border-collapse:collapse;
+        min-width:700px;
+      "
+    >
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            No
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Nama
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            JK
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Tgl Lahir
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            Nama Ibu
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            BB
+          </th>
+
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            TB
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+  `;
+
+
+  data.forEach(
+    function(item, index) {
+
+      html += `
+        <tr>
+
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+            ${index + 1}
+          </td>
+
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+            ${escapeHtml(item.nama)}
+          </td>
+
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+            ${item.jenis_kelamin === "L"
+              ? "Laki-laki"
+              : "Perempuan"}
+          </td>
+
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+            ${item.tanggal_lahir || "-"}
+          </td>
+
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+            ${escapeHtml(item.nama_ibu || "-")}
+          </td>
+
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+            ${item.berat_badan ?? "-"} kg
+          </td>
+
+          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+            ${item.tinggi_badan ?? "-"} cm
+          </td>
+
+        </tr>
+      `;
+
+    }
+  );
+
+
+  html += `
+      </tbody>
+    </table>
+  `;
+
+
+  daftarBalita.innerHTML = html;
+
+}
+
+
+// =========================
+// SIMPAN BALITA
+// =========================
+
+balitaForm.addEventListener(
+  "submit",
+  async function(event) {
+
+    event.preventDefault();
+
+
+    balitaMessage.className =
+      "message";
+
+    balitaMessage.textContent =
+      "Menyimpan data...";
+
+
+    if (!currentKader) {
+
+      balitaMessage.className =
+        "message error";
+
+      balitaMessage.textContent =
+        "Data kader belum tersedia.";
+
+      return;
+    }
+
+
+    const nama =
+      document
+        .getElementById("balitaNama")
+        .value
+        .trim();
+
+
+    const jenisKelamin =
+      document
+        .getElementById("balitaJK")
+        .value;
+
+
+    const tanggalLahir =
+      document
+        .getElementById("balitaTanggalLahir")
+        .value;
+
+
+    const namaIbu =
+      document
+        .getElementById("balitaIbu")
+        .value
+        .trim();
+
+
+    const beratBadan =
+      document
+        .getElementById("balitaBB")
+        .value;
+
+
+    const tinggiBadan =
+      document
+        .getElementById("balitaTB")
+        .value;
+
+
+    const tanggalPengukuran =
+      document
+        .getElementById("balitaTanggalPengukuran")
+        .value;
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("balita")
+        .insert({
+
+          nama: nama,
+
+          jenis_kelamin:
+            jenisKelamin,
+
+          tanggal_lahir:
+            tanggalLahir,
+
+          nama_ibu:
+            namaIbu || null,
+
+          posyandu_kode:
+            currentKader.posyandu_kode,
+
+          berat_badan:
+            beratBadan
+              ? Number(beratBadan)
+              : null,
+
+          tinggi_badan:
+            tinggiBadan
+              ? Number(tinggiBadan)
+              : null,
+
+          tanggal_pengukuran:
+            tanggalPengukuran || null
+
+        });
+
+
+    if (error) {
+
+      console.error(error);
+
+      balitaMessage.className =
+        "message error";
+
+      balitaMessage.textContent =
+        "Gagal menyimpan: " +
+        error.message;
+
+      return;
+    }
+
+
+    balitaMessage.className =
+      "message success";
+
+    balitaMessage.textContent =
+      "Data balita berhasil disimpan.";
+
+
+    balitaForm.reset();
+
+
+    await loadBalita();
+
+  }
+);
+
+
+// =========================
+// PENGAMAN TEKS
+// =========================
+
+function escapeHtml(text) {
+
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+    
     // =========================
     // LOGOUT
     // =========================
