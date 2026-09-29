@@ -728,6 +728,231 @@
     min-height: 48px;
   }
 }
+
+/* =========================
+   PRO DASHBOARD SIKAPOS
+========================= */
+
+.dashboard {
+  background: linear-gradient(180deg, #f3faf6 0%, #eef6f2 100%);
+  min-height: 100vh;
+}
+
+/* HEADER */
+
+.dashboard .topbar {
+  background: linear-gradient(135deg, #0d7044, #16834f, #27a064);
+  padding: 22px 20px 80px;
+  box-shadow: 0 10px 30px rgba(0, 90, 50, 0.18);
+}
+
+.dashboard .topbar-inner {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.dashboard .topbar-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dashboard .mini-logo {
+  width: 54px;
+  height: 54px;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  font-size: 25px;
+}
+
+.dashboard .topbar h1 {
+  margin: 0;
+  color: white;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.dashboard .topbar p {
+  margin: 4px 0 0;
+  color: rgba(255,255,255,0.82);
+  font-size: 13px;
+}
+
+/* TOMBOL LOGOUT */
+
+.logout-topbar {
+  margin-left: auto;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(255,255,255,0.30);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.14);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: 0.2s ease;
+}
+
+.logout-topbar:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-1px);
+}
+
+/* KONTEN */
+
+.dashboard .dashboard-content {
+  max-width: 1100px;
+  margin: -50px auto 0;
+  position: relative;
+  z-index: 2;
+}
+
+/* PROFIL */
+
+.dashboard .profile-card {
+  border-radius: 22px;
+  border: 1px solid #e1eee7;
+  background: linear-gradient(135deg, #ffffff, #f5fbf8);
+  box-shadow: 0 12px 30px rgba(30,60,45,0.09);
+  padding: 24px;
+}
+
+.dashboard .avatar {
+  width: 62px;
+  height: 62px;
+  border-radius: 18px;
+  background: #e4f5eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard .profile-name {
+  color: #20382d;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.dashboard .profile-email {
+  color: #718078;
+  font-size: 13px;
+}
+
+.dashboard .posyandu-badge {
+  background: #e7f6ee;
+  color: #16784b;
+  border: 1px solid #cde8d8;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-weight: 700;
+}
+
+/* JUDUL */
+
+.dashboard .section-title {
+  margin: 30px 0 16px;
+  color: #20382d;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* KARTU MENU */
+
+.dashboard .cards {
+  gap: 18px;
+}
+
+.dashboard .cards .card {
+  min-height: 175px;
+  padding: 24px 18px;
+  border-radius: 21px;
+  border: 1px solid #e2eee7;
+  background: white;
+  box-shadow: 0 8px 25px rgba(30,60,45,0.07);
+  transition: all 0.22s ease;
+  cursor: pointer;
+}
+
+.dashboard .cards .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(30,60,45,0.13);
+  border-color: #cbe4d5;
+}
+
+.dashboard .card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 19px;
+  background: #eaf7ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 13px;
+}
+
+.dashboard .card h3 {
+  margin: 0 0 5px;
+  color: #21392e;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.dashboard .card p {
+  margin: 0;
+  color: #748078;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .dashboard .topbar {
+    padding: 18px 14px 72px;
+  }
+
+  .dashboard .topbar h1 {
+    font-size: 19px;
+  }
+
+  .dashboard .topbar p {
+    font-size: 11px;
+  }
+
+  .dashboard .mini-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .logout-topbar {
+    padding: 0 11px;
+    font-size: 0;
+  }
+
+  .logout-topbar span {
+    font-size: 18px;
+  }
+
+  .dashboard .dashboard-content {
+    margin-top: -45px;
+    padding: 0 14px;
+  }
+
+  .dashboard .cards .card {
+    min-height: 150px;
+  }
+}
+    
     </style>
   </head>
   
@@ -836,18 +1061,27 @@
 
         <div class="topbar-title">
 
-          <div class="mini-logo">
-            🏥
-          </div>
+      <div class="mini-logo">
+        🏥
+      </div>
+    
+      <div>
+        <h1>SIKAPOS SEGAK</h1>
+        <p>
+          Sistem Informasi Kader Posyandu
+        </p>
+      </div>
+    
+      <button
+        type="button"
+        id="logoutButton"
+        class="logout-topbar"
+      >
+        <span>↪</span>
+        Keluar
+      </button>
 
-          <div>
-            <h1>SIKAPOS SEGAK</h1>
-
-            <p>
-              Sistem Informasi Kader Posyandu
-            </p>
-          </div>
-
+      </div>
         </div>
 
       </div>
