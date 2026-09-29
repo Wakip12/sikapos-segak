@@ -729,227 +729,586 @@
   }
 }
 
-/* =========================
+/* =====================================================
    PRO DASHBOARD SIKAPOS
-========================= */
+   Versi Compact • Modern • Responsive
+===================================================== */
 
 .dashboard {
-  background: linear-gradient(180deg, #f3faf6 0%, #eef6f2 100%);
+  display: none;
   min-height: 100vh;
+  background:
+    linear-gradient(
+      180deg,
+      #eef8f2 0%,
+      #f7fbf9 42%,
+      #f3f8f5 100%
+    );
 }
 
-/* HEADER */
+
+/* =====================================================
+   TOPBAR
+===================================================== */
 
 .dashboard .topbar {
-  background: linear-gradient(135deg, #0d7044, #16834f, #27a064);
-  padding: 22px 20px 80px;
-  box-shadow: 0 10px 30px rgba(0, 90, 50, 0.18);
+  background:
+    linear-gradient(
+      135deg,
+      #0c6b41 0%,
+      #16834f 55%,
+      #27a064 100%
+    );
+
+  color: #ffffff;
+
+  padding: 16px 20px 42px;
+
+  box-shadow:
+    0 8px 24px rgba(0, 80, 45, 0.16);
 }
 
 .dashboard .topbar-inner {
-  max-width: 1100px;
-  margin: auto;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
 .dashboard .topbar-title {
+  width: 100%;
+
   display: flex;
   align-items: center;
-  gap: 14px;
+
+  gap: 13px;
 }
 
+
+/* LOGO */
+
 .dashboard .mini-logo {
-  width: 54px;
-  height: 54px;
-  border-radius: 17px;
+  width: 48px;
+  height: 48px;
+
+  flex: 0 0 48px;
+
+  border-radius: 15px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.25);
-  font-size: 25px;
+
+  background: rgba(255,255,255,0.16);
+
+  border: 1px solid rgba(255,255,255,0.24);
+
+  font-size: 22px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.15);
 }
+
+
+/* JUDUL */
 
 .dashboard .topbar h1 {
   margin: 0;
-  color: white;
-  font-size: 23px;
+
+  color: #ffffff;
+
+  font-size: 22px;
   font-weight: 800;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.2px;
 }
 
 .dashboard .topbar p {
   margin: 4px 0 0;
+
   color: rgba(255,255,255,0.82);
-  font-size: 13px;
+
+  font-size: 12px;
+
+  line-height: 1.4;
 }
 
-/* TOMBOL LOGOUT */
+
+/* =====================================================
+   TOMBOL KELUAR
+===================================================== */
 
 .logout-topbar {
   margin-left: auto;
-  min-height: 42px;
-  padding: 0 16px;
-  border: 1px solid rgba(255,255,255,0.30);
-  border-radius: 12px;
-  background: rgba(255,255,255,0.14);
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
+
+  min-height: 40px;
+
+  padding: 0 15px;
+
   display: flex;
   align-items: center;
+  justify-content: center;
+
   gap: 7px;
-  transition: 0.2s ease;
+
+  border: 1px solid rgba(255,255,255,0.28);
+
+  border-radius: 11px;
+
+  background: rgba(255,255,255,0.12);
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.logout-topbar span {
+  font-size: 17px;
+  line-height: 1;
 }
 
 .logout-topbar:hover {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.23);
+
+  border-color: rgba(255,255,255,0.42);
+
   transform: translateY(-1px);
 }
 
-/* KONTEN */
+.logout-topbar:active {
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   KONTEN DASHBOARD
+===================================================== */
 
 .dashboard .dashboard-content {
-  max-width: 1100px;
-  margin: -50px auto 0;
+  width: 100%;
+  max-width: 1080px;
+
+  margin: -22px auto 0;
+
+  padding: 0 20px 35px;
+
   position: relative;
+
   z-index: 2;
 }
 
-/* PROFIL */
+
+/* =====================================================
+   PROFIL KADER
+===================================================== */
 
 .dashboard .profile-card {
-  border-radius: 22px;
-  border: 1px solid #e1eee7;
-  background: linear-gradient(135deg, #ffffff, #f5fbf8);
-  box-shadow: 0 12px 30px rgba(30,60,45,0.09);
-  padding: 24px;
+  width: 100%;
+
+  padding: 20px 22px;
+
+  border-radius: 18px;
+
+  border: 1px solid #e0ebe5;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f7fcf9 100%
+    );
+
+  box-shadow:
+    0 8px 24px rgba(30,60,45,0.08);
 }
 
+
+/* BAGIAN KIRI PROFIL */
+
+.dashboard .profile-left {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+/* AVATAR */
+
 .dashboard .avatar {
-  width: 62px;
-  height: 62px;
-  border-radius: 18px;
-  background: #e4f5eb;
+  width: 56px;
+  height: 56px;
+
+  flex: 0 0 56px;
+
+  border-radius: 16px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e3f5ea,
+      #d6eee0
+    );
+
+  color: #16834f;
+
+  font-size: 21px;
+  font-weight: 800;
+
+  border: 1px solid #cfe6d8;
 }
+
+
+/* NAMA KADER */
 
 .dashboard .profile-name {
+  margin: 0;
+
   color: #20382d;
-  font-size: 20px;
+
+  font-size: 18px;
   font-weight: 800;
+
+  line-height: 1.3;
 }
+
+
+/* EMAIL */
 
 .dashboard .profile-email {
+  margin: 3px 0 0;
+
   color: #718078;
-  font-size: 13px;
+
+  font-size: 12px;
+
+  line-height: 1.4;
 }
 
+
+/* BADGE POSYANDU */
+
 .dashboard .posyandu-badge {
-  background: #e7f6ee;
-  color: #16784b;
-  border: 1px solid #cde8d8;
+  display: inline-flex;
+  align-items: center;
+
+  margin-top: 6px;
+
+  padding: 5px 10px;
+
   border-radius: 20px;
-  padding: 6px 12px;
+
+  background: #e7f6ee;
+
+  color: #16784b;
+
+  border: 1px solid #cde8d8;
+
+  font-size: 11px;
+
   font-weight: 700;
 }
 
-/* JUDUL */
+
+/* =====================================================
+   JUDUL DATA POSYANDU
+===================================================== */
 
 .dashboard .section-title {
-  margin: 30px 0 16px;
+  margin: 22px 0 13px;
+
   color: #20382d;
-  font-size: 20px;
+
+  font-size: 18px;
   font-weight: 800;
+
+  line-height: 1.3;
 }
 
-/* KARTU MENU */
+
+/* =====================================================
+   KARTU MENU
+===================================================== */
 
 .dashboard .cards {
-  gap: 18px;
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
 }
+
+
+/* CARD */
 
 .dashboard .cards .card {
-  min-height: 175px;
-  padding: 24px 18px;
-  border-radius: 21px;
-  border: 1px solid #e2eee7;
-  background: white;
-  box-shadow: 0 8px 25px rgba(30,60,45,0.07);
-  transition: all 0.22s ease;
+  width: 100%;
+
+  min-height: 155px;
+
+  padding: 20px 16px;
+
+  border-radius: 18px;
+
+  border: 1px solid #e1ece6;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 6px 20px rgba(30,60,45,0.06);
+
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+  text-align: center;
 }
+
+
+/* HOVER */
 
 .dashboard .cards .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 35px rgba(30,60,45,0.13);
-  border-color: #cbe4d5;
+  transform: translateY(-4px);
+
+  border-color: #c8e1d2;
+
+  box-shadow:
+    0 12px 28px rgba(30,60,45,0.11);
 }
 
+
+/* ICON */
+
 .dashboard .card-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 19px;
-  background: #eaf7ef;
+  width: 58px;
+  height: 58px;
+
+  margin: 0 auto 11px;
+
+  border-radius: 17px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 30px;
-  margin-bottom: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eaf7ef,
+      #e0f2e7
+    );
+
+  border: 1px solid #d7ebdf;
+
+  font-size: 27px;
 }
 
+
+/* JUDUL CARD */
+
 .dashboard .card h3 {
-  margin: 0 0 5px;
+  margin: 0 0 4px;
+
   color: #21392e;
-  font-size: 16px;
+
+  font-size: 15px;
   font-weight: 800;
+
+  line-height: 1.3;
 }
+
+
+/* DESKRIPSI CARD */
 
 .dashboard .card p {
   margin: 0;
+
   color: #748078;
-  font-size: 12px;
-  line-height: 1.5;
+
+  font-size: 11px;
+
+  line-height: 1.45;
 }
 
-/* MOBILE */
 
-@media (max-width: 700px) {
+/* =====================================================
+   RESPONSIVE TABLET
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .dashboard .cards {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard .cards .card {
+    min-height: 145px;
+  }
+}
+
+
+/* =====================================================
+   RESPONSIVE HP
+===================================================== */
+
+@media (max-width: 600px) {
 
   .dashboard .topbar {
-    padding: 18px 14px 72px;
+    padding: 14px 14px 34px;
   }
 
-  .dashboard .topbar h1 {
-    font-size: 19px;
-  }
-
-  .dashboard .topbar p {
-    font-size: 11px;
+  .dashboard .topbar-title {
+    gap: 10px;
   }
 
   .dashboard .mini-logo {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
+
+    flex-basis: 44px;
+
+    border-radius: 13px;
+
+    font-size: 20px;
+  }
+
+  .dashboard .topbar h1 {
+    font-size: 18px;
+  }
+
+  .dashboard .topbar p {
+    font-size: 10px;
   }
 
   .logout-topbar {
-    padding: 0 11px;
+    min-height: 38px;
+
+    padding: 0 10px;
+
+    border-radius: 10px;
+
     font-size: 0;
   }
 
   .logout-topbar span {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   .dashboard .dashboard-content {
-    margin-top: -45px;
-    padding: 0 14px;
+    margin: -18px auto 0;
+
+    padding:
+      0 14px 28px;
+  }
+
+  .dashboard .profile-card {
+    padding: 17px;
+    border-radius: 16px;
+  }
+
+  .dashboard .avatar {
+    width: 50px;
+    height: 50px;
+
+    flex-basis: 50px;
+
+    border-radius: 14px;
+  }
+
+  .dashboard .profile-name {
+    font-size: 16px;
+  }
+
+  .dashboard .section-title {
+    margin-top: 20px;
+
+    font-size: 17px;
+  }
+
+  .dashboard .cards {
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
   }
 
   .dashboard .cards .card {
-    min-height: 150px;
+    min-height: 140px;
+
+    padding: 17px 10px;
+
+    border-radius: 16px;
+  }
+
+  .dashboard .card-icon {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 15px;
+
+    font-size: 23px;
+
+    margin-bottom: 9px;
+  }
+
+  .dashboard .card h3 {
+    font-size: 13px;
+  }
+
+  .dashboard .card p {
+    font-size: 10px;
+  }
+}
+
+
+/* =====================================================
+   HP SANGAT KECIL
+===================================================== */
+
+@media (max-width: 380px) {
+
+  .dashboard .topbar h1 {
+    font-size: 16px;
+  }
+
+  .dashboard .topbar p {
+    font-size: 9px;
+  }
+
+  .dashboard .mini-logo {
+    width: 40px;
+    height: 40px;
+
+    flex-basis: 40px;
+  }
+
+  .dashboard .cards {
+    gap: 8px;
+  }
+
+  .dashboard .cards .card {
+    min-height: 130px;
+
+    padding: 14px 7px;
   }
 }
     
