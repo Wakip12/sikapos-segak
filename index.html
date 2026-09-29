@@ -1122,16 +1122,16 @@ balitaMenu.addEventListener(
   "click",
   async function() {
 
-    dashboardContent
-      .querySelectorAll(
-        ".profile-card, .section-title, .cards"
-      )
-      .forEach(function(element) {
-        element.style.display = "none";
-      });
+    // Sembunyikan menu dashboard
+    document.querySelector(".profile-card").style.display = "none";
+    document.querySelector(".section-title").style.display = "none";
+    document.querySelector(".cards").style.display = "none";
+    document.getElementById("logoutButton").style.display = "none";
 
+    // Tampilkan halaman Balita
     balitaPage.style.display = "block";
 
+    // Muat data balita
     await loadBalita();
 
   }
@@ -1150,13 +1150,10 @@ document
 
       balitaPage.style.display = "none";
 
-      dashboardContent
-        .querySelectorAll(
-          ".profile-card, .section-title, .cards"
-        )
-        .forEach(function(element) {
-          element.style.display = "";
-        });
+      document.querySelector(".profile-card").style.display = "";
+      document.querySelector(".section-title").style.display = "";
+      document.querySelector(".cards").style.display = "";
+      document.getElementById("logoutButton").style.display = "";
 
     }
   );
