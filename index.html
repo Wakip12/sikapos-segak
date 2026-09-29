@@ -1202,7 +1202,7 @@ async function loadBalita() {
     await supabaseClient
       .from("balita")
       .select(
-        "id, nama, jenis_kelamin, tanggal_lahir, nama_ibu, berat_badan, tinggi_badan, tanggal_pengukuran"
+        "id, no_kk, nik, nama, jenis_kelamin, tanggal_lahir, nama_ibu, berat_badan, tinggi_badan, tanggal_pengukuran"
       )
       .eq(
         "posyandu_kode",
@@ -1250,7 +1250,14 @@ async function loadBalita() {
           <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
             No
           </th>
-
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            No. KK
+          </th>
+          
+          <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
+            NIK
+          </th>
+          
           <th style="text-align:left;padding:10px;border-bottom:1px solid #dfe7e2;">
             Nama
           </th>
@@ -1286,14 +1293,22 @@ async function loadBalita() {
 
       html += `
         <tr>
-
-          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
-            ${index + 1}
-          </td>
-
-          <td style="padding:10px;border-bottom:1px solid #edf2ef;">
-            ${escapeHtml(item.nama)}
-          </td>
+        
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${index + 1}
+        </td>
+        
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.no_kk || "-")}
+        </td>
+        
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.nik || "-")}
+        </td>
+        
+        <td style="padding:10px;border-bottom:1px solid #edf2ef;">
+          ${escapeHtml(item.nama)}
+        </td>
 
           <td style="padding:10px;border-bottom:1px solid #edf2ef;">
             ${item.jenis_kelamin === "L"
