@@ -1049,39 +1049,90 @@
   </div>
 
 
-  <!-- =========================
-       DASHBOARD
-  ========================== -->
+<!-- =========================
+     DASHBOARD
+========================== -->
 
-  <div class="dashboard" id="dashboardPage">
+<div class="dashboard" id="dashboardPage">
 
-    <div class="topbar">
+  <!-- TOPBAR -->
+  <div class="topbar">
 
-      <div class="topbar-inner">
+    <div class="topbar-inner">
 
-        <div class="topbar-title">
+      <div class="topbar-title">
 
-      <div class="mini-logo">
-        🏥
+        <!-- LOGO -->
+        <div class="mini-logo">
+          🏥
+        </div>
+
+        <!-- JUDUL -->
+        <div>
+          <h1>SIKAPOS SEGAK</h1>
+          <p>
+            Sistem Informasi Kader Posyandu
+          </p>
+        </div>
+
+        <!-- LOGOUT -->
+        <button
+          type="button"
+          id="logoutButton"
+          class="logout-topbar"
+        >
+          <span>↪</span>
+          Keluar
+        </button>
+
       </div>
-    
-      <div>
-        <h1>SIKAPOS SEGAK</h1>
-        <p>
-          Sistem Informasi Kader Posyandu
-        </p>
-      </div>
-    
-      <button
-        type="button"
-        id="logoutButton"
-        class="logout-topbar"
-      >
-        <span>↪</span>
-        Keluar
-      </button>
 
-      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ISI DASHBOARD -->
+  <div class="dashboard-content">
+
+    <!-- =========================
+         PROFIL KADER
+    ========================== -->
+
+    <div class="profile-card">
+
+      <div class="profile-left">
+
+        <!-- AVATAR -->
+        <div
+          class="avatar"
+          id="avatar"
+        >
+          K
+        </div>
+
+        <!-- INFORMASI KADER -->
+        <div>
+
+          <h2
+            class="profile-name"
+            id="kaderName"
+          >
+            Kader
+          </h2>
+
+          <p
+            class="profile-email"
+            id="userEmail"
+          ></p>
+
+          <span
+            class="posyandu-badge"
+            id="posyandu"
+          >
+            Posyandu
+          </span>
+
         </div>
 
       </div>
@@ -1089,83 +1140,107 @@
     </div>
 
 
-    <div class="dashboard-content">
+    <!-- =========================
+         MENU DATA POSYANDU
+    ========================== -->
 
-      <!-- PROFIL KADER -->
+    <h2 class="section-title">
+      Data Posyandu
+    </h2>
 
-      <div class="profile-card">
 
-        <div class="profile-left">
+    <div class="cards">
 
-          <div
-            class="avatar"
-            id="avatar"
-          >
-            K
-          </div>
+      <!-- BALITA -->
+      <button
+        class="card"
+        id="balitaMenu"
+        type="button"
+      >
 
-          <div>
-
-            <h2
-              class="profile-name"
-              id="kaderName"
-            >
-              Kader
-            </h2>
-
-            <p
-              class="profile-email"
-              id="userEmail"
-            >
-            </p>
-
-            <span
-              class="posyandu-badge"
-              id="posyandu"
-            >
-              Posyandu
-            </span>
-
-          </div>
-
+        <div class="card-icon">
+          👶
         </div>
+
+        <h3>
+          Balita
+        </h3>
+
+        <p>
+          Data balita
+        </p>
+
+      </button>
+
+
+      <!-- IBU HAMIL & NIFAS -->
+      <button
+        class="card"
+        id="ibuHamilMenu"
+        type="button"
+      >
+
+        <div class="card-icon">
+          🤰
+        </div>
+
+        <h3>
+          Ibu Hamil & Nifas
+        </h3>
+
+        <p>
+          Data ibu hamil dan nifas
+        </p>
+
+      </button>
+
+
+      <!-- REMATRI -->
+      <div
+        class="card"
+        id="rematriMenu"
+      >
+
+        <div class="card-icon">
+          👧
+        </div>
+
+        <h3>
+          Rematri
+        </h3>
+
+        <p>
+          Data remaja putri
+        </p>
 
       </div>
 
 
-      <!-- MENU -->
+      <!-- LANSIA -->
+      <div
+        class="card"
+        id="lansiaMenu"
+      >
 
-      <h2 class="section-title">
-        Data Posyandu
-      </h2>
-
-      <div class="cards">
-
-        <button class="card" id="balitaMenu" type="button">
-          <div class="card-icon">👶</div>
-          <h3>Balita</h3>
-          <p>Data balita</p>
-        </button>
-
-        <button class="card" id="ibuHamilMenu" type="button">
-          <div class="card-icon">🤰</div>
-          <h3>Ibu Hamil & Nifas</h3>
-          <p>Data ibu hamil dan nifas</p>
-        </button>
-
-        <div class="card">
-          <div class="card-icon">👧</div>
-          <h3>Rematri</h3>
-          <p>Data remaja putri</p>
+        <div class="card-icon">
+          👵
         </div>
 
-        <div class="card">
-          <div class="card-icon">👵</div>
-          <h3>Lansia</h3>
-          <p>Data lansia</p>
-        </div>
+        <h3>
+          Lansia
+        </h3>
+
+        <p>
+          Data lansia
+        </p>
 
       </div>
+
+    </div>
+
+  </div>
+
+</div>
 
 <!-- =========================
      HALAMAN BALITA
