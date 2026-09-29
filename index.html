@@ -8,190 +8,314 @@
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
       background: #f3f7f4;
       color: #26332b;
     }
 
-    .header {
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    }
+
+    .login-box h1 {
+      text-align: center;
+      margin-bottom: 8px;
+      color: #16784b;
+    }
+
+    .login-box p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
       background: #16784b;
       color: white;
-      padding: 28px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0f603b;
+    }
+
+    .error {
+      color: #c62828;
+      margin-top: 15px;
       text-align: center;
     }
 
-    .header h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
+    .dashboard {
+      display: none;
+      min-height: 100vh;
     }
 
-    .header p {
-      font-size: 14px;
-      opacity: 0.9;
+    header {
+      background: #16784b;
+      color: white;
+      padding: 25px;
+      text-align: center;
     }
 
-    .container {
+    .content {
       max-width: 900px;
-      margin: 25px auto;
-      padding: 0 18px;
+      margin: auto;
+      padding: 25px;
     }
 
-    .welcome {
+    .info {
       background: white;
-      border-radius: 15px;
-      padding: 22px;
+      padding: 20px;
+      border-radius: 12px;
       margin-bottom: 20px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
     }
 
-    .welcome h2 {
-      margin-bottom: 8px;
-    }
-
-    .grid {
+    .cards {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 15px;
     }
 
     .card {
       background: white;
-      border-radius: 15px;
-      padding: 25px 18px;
-      text-align: center;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-    }
-
-    .icon {
-      font-size: 40px;
-      margin-bottom: 12px;
-    }
-
-    .card h3 {
-      margin-bottom: 7px;
-    }
-
-    .card p {
-      color: #777;
-      font-size: 14px;
-    }
-
-    .buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    button {
-      border: none;
+      padding: 25px;
       border-radius: 12px;
-      padding: 15px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .primary {
-      background: #16784b;
-      color: white;
-    }
-
-    .secondary {
-      background: white;
-      color: #16784b;
-      border: 1px solid #16784b;
-    }
-
-    .footer {
       text-align: center;
-      padding: 30px 15px;
-      color: #777;
-      font-size: 13px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .header h1 {
-        font-size: 24px;
-      }
+    .logout {
+      background: #c62828;
+      max-width: 200px;
+      display: block;
+      margin: 25px auto;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="header">
-    <h1>SIKAPOS SEGAK</h1>
-    <p>Sistem Informasi Kader Posyandu Desa Sungai Segak</p>
+  <!-- HALAMAN LOGIN -->
+  <div class="login-page" id="loginPage">
+    <div class="login-box">
+      <h1>SIKAPOS SEGAK</h1>
+      <p>Sistem Informasi Kader Posyandu<br>Desa Sungai Segak</p>
+
+      <form id="loginForm">
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Masukkan email"
+          required
+        >
+
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Masukkan password"
+          required
+        >
+
+        <button type="submit">MASUK</button>
+
+        <div class="error" id="errorMessage"></div>
+      </form>
+    </div>
   </div>
 
-  <div class="container">
 
-    <div class="welcome">
-      <h2>Dashboard Kader</h2>
-      <p>Posyandu: <strong>Posyandu 01</strong></p>
-    </div>
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboardPage">
 
-    <div class="grid">
+    <header>
+      <h1>SIKAPOS SEGAK</h1>
+      <p>Desa Sungai Segak</p>
+    </header>
 
-      <div class="card">
-        <div class="icon">👶</div>
-        <h3>Balita</h3>
-        <p>Data dan pemeriksaan balita</p>
+    <div class="content">
+
+      <div class="info">
+        <h2>Selamat Datang</h2>
+        <p id="userEmail"></p>
+        <p><strong>Posyandu:</strong> <span id="posyandu"></span></p>
       </div>
 
-      <div class="card">
-        <div class="icon">🤰</div>
-        <h3>Ibu Hamil & Nifas</h3>
-        <p>Data ibu hamil dan nifas</p>
+      <div class="cards">
+
+        <div class="card">
+          <h2>👶</h2>
+          <h3>Balita</h3>
+          <p>Data balita</p>
+        </div>
+
+        <div class="card">
+          <h2>🤰</h2>
+          <h3>Ibu Hamil & Nifas</h3>
+          <p>Data ibu hamil dan nifas</p>
+        </div>
+
+        <div class="card">
+          <h2>👧</h2>
+          <h3>Rematri</h3>
+          <p>Data remaja putri</p>
+        </div>
+
+        <div class="card">
+          <h2>👵</h2>
+          <h3>Lansia</h3>
+          <p>Data lansia</p>
+        </div>
+
       </div>
 
-      <div class="card">
-        <div class="icon">👧</div>
-        <h3>Rematri</h3>
-        <p>Data remaja putri</p>
-      </div>
-
-      <div class="card">
-        <div class="icon">👴</div>
-        <h3>Lansia</h3>
-        <p>Data dan pemeriksaan lansia</p>
-      </div>
-
-    </div>
-
-    <div class="buttons">
-      <button class="primary" onclick="alert('Menu tambah data akan kita buat pada tahap berikutnya.')">
-        + Tambah Data
+      <button class="logout" id="logoutButton">
+        Keluar
       </button>
 
-      <button class="secondary" onclick="alert('Menu pencarian akan kita buat pada tahap berikutnya.')">
-        🔎 Cari Data
-      </button>
     </div>
-
   </div>
 
-  <div class="footer">
-    SIKAPOS SEGAK © Desa Sungai Segak
-  </div>
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+
+    const SUPABASE_URL =
+      "https://jeyqufctvgkgrkbmhmkv.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_CnnNfFXKq-7KehidQzhF4w_ux7oMBcZ/";
+
+    const supabaseClient = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+
+
+    const loginForm = document.getElementById("loginForm");
+    const loginPage = document.getElementById("loginPage");
+    const dashboardPage = document.getElementById("dashboardPage");
+    const errorMessage = document.getElementById("errorMessage");
+
+
+    loginForm.addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+      errorMessage.textContent = "Sedang masuk...";
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+
+      if (error) {
+        errorMessage.textContent =
+          "Login gagal: " + error.message;
+        return;
+      }
+
+
+      // Cari data kader berdasarkan user_id
+      const { data: kader, error: kaderError } =
+        await supabaseClient
+          .from("kader")
+          .select("nama, posyandu_kode, aktif")
+          .eq("user_id", data.user.id)
+          .single();
+
+
+      if (kaderError) {
+        errorMessage.textContent =
+          "Login berhasil, tetapi data kader belum ditemukan.";
+        return;
+      }
+
+
+      if (!kader.aktif) {
+        await supabaseClient.auth.signOut();
+
+        errorMessage.textContent =
+          "Akun kader tidak aktif.";
+        return;
+      }
+
+
+      // Tampilkan dashboard
+      loginPage.style.display = "none";
+      dashboardPage.style.display = "block";
+
+      document.getElementById("userEmail").textContent =
+        "Kader: " + kader.nama;
+
+      document.getElementById("posyandu").textContent =
+        kader.posyandu_kode;
+
+    });
+
+
+    // Tombol keluar
+    document.getElementById("logoutButton")
+      .addEventListener("click", async function() {
+
+        await supabaseClient.auth.signOut();
+
+        dashboardPage.style.display = "none";
+        loginPage.style.display = "flex";
+
+        document.getElementById("loginForm").reset();
+        errorMessage.textContent = "";
+
+      });
+
+  </script>
 
 </body>
 </html>
